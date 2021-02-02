@@ -1,1 +1,0 @@
-{"title":"My quiz end","questions":[{"title":"pregunta 1?","questionType":"TEXT","validations":["REQUIRED"],"additionalData":[]},{"title":"Pregunta 2?","questionType":"DATE","validations":["DATE"],"additionalData":[]},{"title":"Pregunta 3?","questionType":"PICK_ONE","validations":["REQUIRED"],"additionalData":["option 1","option 2"]}]}

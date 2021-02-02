@@ -28,6 +28,9 @@ public class Menu {
         boolean shouldExit = false;
 		
         switch (option) {
+			case '0':
+				loadJsonQuiz();
+				break;
             case '1':
                 quiz = QuizUIHandler.createQuiz();
 				JsonPersistence.saveQuiz(quiz);
@@ -74,6 +77,7 @@ public class Menu {
     private void showMainMenu() {
         System.out.println("Quizc - A command quiz utility");
         System.out.println("======================================");
+		System.out.println("0. Load JSONs");
         System.out.println("1. Create quiz");
         System.out.println("2. Fill quiz");
         System.out.println("3. Show quiz");
@@ -83,5 +87,14 @@ public class Menu {
 
 	private boolean existsJsons() {
 		return JsonPersistence.existsJsons();
+	}
+
+	private void loadJsonQuiz() {
+		System.out.println("Enter the location of your quiz json file");
+		System.out.println("for example=  c:\\myFiles\\myQuiz.json");
+		this.quiz = JsonPersistence.getQuizWhitUrl(InputReader.readLine());
+		System.out.println("Enter the location of your quiz answers json file");
+		System.out.println("for example=  c:\\myFiles\\myQuizAnswers.json");
+		this.quizAnswers = JsonPersistence.getQuizAnswersWhitUrl(InputReader.readLine());
 	}
 }

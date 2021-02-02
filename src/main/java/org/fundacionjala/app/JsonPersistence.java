@@ -68,4 +68,30 @@ public class JsonPersistence {
 		}
 	}
 
+	public static Quiz getQuizWhitUrl(String url) {
+		Gson gson = new Gson();
+        Quiz quiz = null;
+		//need to implement verification of file existence
+        try (JsonReader reader = new JsonReader(new FileReader(url))) {
+            quiz = gson.fromJson(reader, Quiz.class);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        return quiz;
+	}
+
+	public static QuizAnswers getQuizAnswersWhitUrl(String url) {
+		Gson gson = new Gson();
+        QuizAnswers quizAnswers = null;
+		//need to implement verification of file existence
+        try (JsonReader reader = new JsonReader(new FileReader(url))) {
+            quizAnswers = gson.fromJson(reader, QuizAnswers.class);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        return quizAnswers;
+	}
+
 }

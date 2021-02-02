@@ -34,7 +34,13 @@ public class QuestionInputHandler {
             char option = InputReader.readOption();
             if (option == '0') {
                 break;
-            }
+            }else{
+				/*
+				*  A BUG HERE, THE SELECTION ANSWER WAS NOT SAVED!, ALREADY SOLVED
+				*/
+				answer = question.getAdditionalData().get((Character.getNumericValue(option))-1);
+				break;
+			}
         }
 
         return answer;
