@@ -4,67 +4,68 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.io.File;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.stream.JsonReader;
+import org.fundacionjala.app.quizz.model.Quiz;
+import org.fundacionjala.app.quizz.model.QuizAnswers;
 
 public class JsonPersistence {
-    public static void main(String[] args) {
-        Person person = new Person("Elon", "Musk", 49);
-        writeJsonFile(person);
 
-        Person parsedPerson = readJsonFile();
-        System.out.println(parsedPerson);
-    }
 
-    private static Person readJsonFile() {
-        Gson gson = new Gson();
-        Person person = null;
-        try (JsonReader reader = new JsonReader(new FileReader("./myForm.json"))) {
-            person = gson.fromJson(reader, Person.class);
+	public static void saveQuizAnswers(QuizAnswers quizAnswers){
+		Gson gson = new Gson();
+        try (Writer writer = new FileWriter("./myQuizAnswers.json")) {
+            gson.toJson(quizAnswers, writer);
+        } catch (JsonIOException | IOException exception) {
+            exception.printStackTrace();
+        }
+	}
+	
+	public static void saveQuiz(Quiz quiz){
+		Gson gson = new Gson();
+        try (Writer writer = new FileWriter("./myQuiz.json")) {
+            gson.toJson(quiz, writer);
+        } catch (JsonIOException | IOException exception) {
+            exception.printStackTrace();
+        }
+	}
+
+	public static Quiz getMyQuiz() {
+		Gson gson = new Gson();
+        Quiz quiz = null;
+        try (JsonReader reader = new JsonReader(new FileReader("./myQuiz.json"))) {
+            quiz = gson.fromJson(reader, Quiz.class);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
 
-        return person;
-    }
+        return quiz;
+	}
 
-    public static void writeJsonFile(Person person) {
-        Gson gson = new Gson();
-        try (Writer writer = new FileWriter("./myForm.json")) {
-            gson.toJson(person, writer);
-        } catch (JsonIOException | IOException exception) {
+	public static QuizAnswers getMyQuizAnswers() {
+		Gson gson = new Gson();
+        QuizAnswers quizAnswers = null;
+        try (JsonReader reader = new JsonReader(new FileReader("./myQuizAnswers.json"))) {
+            quizAnswers = gson.fromJson(reader, QuizAnswers.class);
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
-    }
 
-    public static class Person {
-        private final String name;
-        private final String lastName;
-        private final int age;
+        return quizAnswers;
+	}
 
-        public Person(String name, String lastName, int age) {
-            this.name = name;
-            this.lastName = lastName;
-            this.age = age;
-        }
+	public static boolean existsJsons() {
+		File quiz = new File("./myQuiz.json");
+		File quizAnswers = new File("./myQuizAnwers.json");
+		
+		if(quiz.exists() || quizAnswers.exists()){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
-        public String getName() {
-            return name;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        @Override
-        public String toString() {
-            return getName() + " " + getLastName() + " : " + getAge();
-        }
-    }
 }

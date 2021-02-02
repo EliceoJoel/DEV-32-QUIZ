@@ -29,11 +29,13 @@ public class QuizUIHandler {
 	}
 
 	public static void showQuiz(QuizAnswers quizAnswers) {
-		System.out.println(quizAnswers.getQuiz().getTitle());
+		System.out.println("\n              " + quizAnswers.getQuiz().getTitle());
 		System.out.println("=============================================");
 
+		int i = 1;
 		for (Answer answer : quizAnswers.getAnswers()) {
-			System.out.println(answer);
+			System.out.println(i + ".- " + answer);
+			i++;
 		}
 
 		System.out.println("=============================================");

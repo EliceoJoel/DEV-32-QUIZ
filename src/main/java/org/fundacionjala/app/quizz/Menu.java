@@ -1,27 +1,36 @@
 package org.fundacionjala.app.quizz;
 
+import org.fundacionjala.app.JsonPersistence;
 import org.fundacionjala.app.quizz.console.QuizUIHandler;
 import org.fundacionjala.app.quizz.model.Quiz;
 import org.fundacionjala.app.quizz.model.QuizAnswers;
 import org.fundacionjala.app.quizz.console.util.InputReader;
 
 public class Menu {
-
+	
+	
     private Quiz quiz;
     private QuizAnswers quizAnswers;
 
     public Menu() {
-        this.quiz = null;
-        this.quizAnswers = null;
+		if(existsJsons()){
+			this.quiz = JsonPersistence.getMyQuiz();
+			this.quizAnswers = JsonPersistence.getMyQuizAnswers();
+		}else{
+			this.quiz = null;
+			this.quizAnswers = null;
+		}
     }
 
     public boolean process() {
         showMainMenu();
         char option = InputReader.readOption();
         boolean shouldExit = false;
+		
         switch (option) {
             case '1':
                 quiz = QuizUIHandler.createQuiz();
+				JsonPersistence.saveQuiz(quiz);
                 break;
             case '2':
                 fillQuiz();
@@ -40,6 +49,7 @@ public class Menu {
         System.out.println(System.lineSeparator());
         return shouldExit;
     }
+	
 
     private void showQuiz() {
         if (quiz == null || quizAnswers == null) {
@@ -57,6 +67,8 @@ public class Menu {
         }
 
         quizAnswers = QuizUIHandler.fillQuiz(quiz);
+		//save quiz answers
+		JsonPersistence.saveQuizAnswers(quizAnswers);
     }
 
     private void showMainMenu() {
@@ -68,4 +80,8 @@ public class Menu {
         System.out.println("4. Exit");
         System.out.println("======================================");
     }
+
+	private boolean existsJsons() {
+		return JsonPersistence.existsJsons();
+	}
 }

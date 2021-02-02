@@ -4,12 +4,14 @@ import org.fundacionjala.app.quizz.model.configuration.QuestionConfiguration;
 import org.fundacionjala.app.quizz.model.configuration.TextConfiguration;
 import org.fundacionjala.app.quizz.model.validator.ValidatorType;
 import org.fundacionjala.app.quizz.model.configuration.DateConfiguration;
+import org.fundacionjala.app.quizz.model.configuration.NumericConfiguration;
 import org.fundacionjala.app.quizz.model.configuration.PickOneConfiguration;
 
 public enum QuestionType {
     TEXT(1, "Text", new TextConfiguration()),
     DATE(2, "Date", new DateConfiguration()),
-    PICK_ONE(3, "Pick One", new PickOneConfiguration());
+    PICK_ONE(3, "Pick One", new PickOneConfiguration()),
+	NUMERIC(4, "Numeric", new NumericConfiguration());
 
     private final int code;
     private final String displayName;
